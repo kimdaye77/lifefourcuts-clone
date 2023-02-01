@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>475358697507-t9177s9ems6qc9c9c0ra9i8vtbpm92ki.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.475358697507-t9177s9ems6qc9c9c0ra9i8vtbpm92ki</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCkE1tnydbrKEhygs7k-p5HKXfIMkFyeeg</string>
+	<key>GCM_SENDER_ID</key>
+	<string>475358697507</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.lifefourcutsClone</string>
+	<key>PROJECT_ID</key>
+	<string>lifecuts-clone-test</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lifecuts-clone-test.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:475358697507:ios:c66b2cec77dcbda64ab996</string>
+</dict>
+</plist>
