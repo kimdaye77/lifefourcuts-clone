@@ -10,7 +10,14 @@ import 'info_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   String name;
-  HomeScreen({super.key, required this.name});
+  String provider;
+  String accessToken;
+  HomeScreen({
+    super.key,
+    required this.name,
+    required this.provider,
+    required this.accessToken,
+  });
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -67,6 +74,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const Search(),
               Info(
                 name: widget.name,
+                provider: widget.provider,
+                accessToken: widget.accessToken,
               ),
             ],
           ),

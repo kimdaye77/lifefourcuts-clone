@@ -1,16 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lifefourcuts_clone/screen/coupon_screen.dart';
 import 'package:lifefourcuts_clone/screen/setting_screen.dart';
+import 'package:uuid/uuid.dart';
 
 import '../widget/story_widget.dart';
 import 'frame_choice_screen.dart';
 import 'login_screen.dart';
 
 class Info extends StatefulWidget {
-  String name;
-  Info({super.key, required this.name});
+  String name, provider, accessToken;
+  Info(
+      {super.key,
+      required this.name,
+      required this.provider,
+      required this.accessToken});
 
   @override
   State<Info> createState() => _InfoState();
@@ -23,9 +29,23 @@ class _InfoState extends State<Info> {
 
     setState(() {
       widget.name = "";
+      widget.provider = "";
     });
 
     print("Sign out");
+  }
+
+  void signOutwithKakao() async {
+    final clientState = const Uuid().v4();
+
+    final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
+      'response_type': 'code',
+      'client_id': '148faed447a0971199aff197f0c37b49',
+      'redirect_uri': 'http://192.168.56.1:8080/kakao/sign_out',
+      'state': clientState,
+    });
+    final result = await FlutterWebAuth.authenticate(
+        url: url.toString(), callbackUrlScheme: "webauthcallback");
   }
 
   void _showLogOutDialog() {
@@ -82,12 +102,21 @@ class _InfoState extends State<Info> {
                           ),
                           child: TextButton(
                             onPressed: () {
-                              signOutWithGoogle();
+                              if (widget.provider == "google") {
+                                signOutWithGoogle();
+                                print("googlesignout");
+                              } else if (widget.provider == "kakao") {
+                                signOutwithKakao();
+                                print("kakaosignout");
+                              }
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: ((context) =>
-                                      Login(name: widget.name)),
+                                  builder: ((context) => Login(
+                                        name: widget.name,
+                                        provider: "",
+                                        accessToken: "",
+                                      )),
                                 ),
                               );
                             },
@@ -254,9 +283,9 @@ class _InfoState extends State<Info> {
                               right: 10,
                             ),
                           ),
-                          const Text(
-                            'TestID',
-                            style: TextStyle(
+                          Text(
+                            widget.name,
+                            style: const TextStyle(
                               fontSize: 18,
                             ),
                           ),

@@ -4,24 +4,29 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart' as kakao;
 import 'package:lifefourcuts_clone/screen/home_screen.dart';
 import 'package:uuid/uuid.dart';
 
 class Login extends StatefulWidget {
   String name;
+  String provider;
+  String accessToken;
 
-  Login({super.key, required this.name});
+  Login(
+      {super.key,
+      required this.name,
+      required this.provider,
+      required this.accessToken});
 
   @override
   State<Login> createState() => _LoginState();
-
-  String getter() {
-    return name;
-  }
 }
 
 class _LoginState extends State<Login> {
   late final bool _loading = true;
+  var googleProvider = GoogleAuthProvider();
+  var kakaoProvider = kakao.TokenManagerProvider;
 
   Future<bool> signInWithGoogle() async {
     try {
@@ -45,6 +50,7 @@ class _LoginState extends State<Login> {
       if (user == null) return false;
       setState(() {
         widget.name = user.displayName!;
+        widget.provider = "google";
       });
     } catch (e) {
       print(e);
@@ -59,6 +65,7 @@ class _LoginState extends State<Login> {
 
     setState(() {
       widget.name = "";
+      widget.provider = "";
     });
 
     print("Sign out");
@@ -78,16 +85,22 @@ class _LoginState extends State<Login> {
         url: url.toString(), callbackUrlScheme: 'webauthcallback');
     print(result);
 
-    final params = Uri.parse(result);
-    String token = params.query.substring(12);
-    print(token);
+    final params = Uri.parse(result).queryParameters;
+
+    String customToken;
+    widget.accessToken = params['accessToken']!;
+    customToken = params['customToken']!;
+
+    print(params);
+
     final UserCredential authResult =
-        await FirebaseAuth.instance.signInWithCustomToken(token);
+        await FirebaseAuth.instance.signInWithCustomToken(customToken);
     User? user = authResult.user;
     if (user == null) return false;
 
     setState(() {
       widget.name = user.displayName!;
+      widget.provider = "kakao";
     });
     print(widget.name);
 
@@ -183,6 +196,8 @@ class _LoginState extends State<Login> {
                         MaterialPageRoute(
                           builder: ((context) => HomeScreen(
                                 name: widget.name,
+                                provider: widget.provider,
+                                accessToken: widget.accessToken,
                               )),
                         ),
                       );
@@ -219,6 +234,8 @@ class _LoginState extends State<Login> {
                         MaterialPageRoute(
                           builder: ((context) => HomeScreen(
                                 name: widget.name,
+                                provider: widget.provider,
+                                accessToken: widget.accessToken,
                               )),
                         ),
                       );

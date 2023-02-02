@@ -24,13 +24,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String name = "";
+  String provider = "";
 
   @override
   void initState() {
-    // name = Login(
-    //   name: name,
-    // ).getter();
-    // print(name);
     super.initState();
   }
 
@@ -49,6 +46,8 @@ class _MyAppState extends State<MyApp> {
       ),
       home: Login(
         name: name,
+        provider: provider,
+        accessToken: "",
       ),
     );
   }
