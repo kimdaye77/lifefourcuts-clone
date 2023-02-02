@@ -24,11 +24,27 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  late final bool _loading = true;
+  bool _loading = true;
   var googleProvider = GoogleAuthProvider();
   var kakaoProvider = kakao.TokenManagerProvider;
 
   Future<bool> signInWithGoogle() async {
+    if (_loading) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Center(
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator(
+                        backgroundColor: Theme.of(context).backgroundColor,
+                        valueColor:
+                            const AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ),
+                  )));
+    }
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -72,6 +88,22 @@ class _LoginState extends State<Login> {
   }
 
   Future<bool> signInWithKakao() async {
+    if (_loading) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => Center(
+                    child: SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: CircularProgressIndicator(
+                        backgroundColor: Theme.of(context).backgroundColor,
+                        valueColor:
+                            const AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ),
+                  )));
+    }
     final clientState = const Uuid().v4();
 
     final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
@@ -101,26 +133,11 @@ class _LoginState extends State<Login> {
     setState(() {
       widget.name = user.displayName!;
       widget.provider = "kakao";
+      _loading = false;
     });
     print(widget.name);
 
     return true;
-  }
-
-  void signOutwithKakao() async {
-    final clientState = const Uuid().v4();
-
-    final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
-      'response_type': 'code',
-      'client_id': '148faed447a0971199aff197f0c37b49',
-      'redirect_uri': 'http://192.168.56.1:8080/kakao/sign_out',
-      'state': clientState,
-    });
-
-    final result = await FlutterWebAuth.authenticate(
-        url: url.toString(), callbackUrlScheme: "webauthcallback");
-    final params = Uri.parse(result).queryParameters;
-    print(params['customToken']);
   }
 
   @override
@@ -165,7 +182,7 @@ class _LoginState extends State<Login> {
                     ),
                     backgroundColor: Colors.transparent,
                   ),
-                  onPressed: signOutwithKakao,
+                  onPressed: signOutWithGoogle,
                   child: Text(
                     'SNS로그인으로 시작하기',
                     style: TextStyle(
@@ -191,7 +208,7 @@ class _LoginState extends State<Login> {
                   ),
                   onPressed: () async {
                     if (await signInWithKakao()) {
-                      Navigator.push(
+                      await Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: ((context) => HomeScreen(
@@ -239,6 +256,19 @@ class _LoginState extends State<Login> {
                               )),
                         ),
                       );
+                    } else {
+                      () => Center(
+                            child: SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: CircularProgressIndicator(
+                                backgroundColor:
+                                    Theme.of(context).backgroundColor,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    Colors.white),
+                              ),
+                            ),
+                          );
                     }
                   },
                   child: const Text(
