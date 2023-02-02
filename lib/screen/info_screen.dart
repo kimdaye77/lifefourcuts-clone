@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lifefourcuts_clone/screen/coupon_screen.dart';
 import 'package:lifefourcuts_clone/screen/setting_screen.dart';
-import 'package:uuid/uuid.dart';
+import 'package:http/http.dart' as http;
 
 import '../widget/story_widget.dart';
 import 'frame_choice_screen.dart';
@@ -35,17 +34,32 @@ class _InfoState extends State<Info> {
     print("Sign out");
   }
 
-  void signOutwithKakao() async {
-    final clientState = const Uuid().v4();
+  Future<bool> signOutwithKakao() async {
+    // final clientState = const Uuid().v4();
 
-    final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
-      'response_type': 'code',
-      'client_id': '148faed447a0971199aff197f0c37b49',
-      'redirect_uri': 'http://192.168.56.1:8080/kakao/sign_out',
-      'state': clientState,
-    });
-    final result = await FlutterWebAuth.authenticate(
-        url: url.toString(), callbackUrlScheme: "webauthcallback");
+    // final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
+    //   'response_type': 'code',
+    //   'client_id': '148faed447a0971199aff197f0c37b49',
+    //   'redirect_uri': 'http://192.168.56.1:8080/kakao/sign_out',
+    //   'state': clientState,
+    // });
+    final url = Uri.parse("http://192.168.56.1:8080/kakao/sign_out");
+    final result = await http.post(
+      url,
+      headers: <String, String>{
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: <String, String>{
+        'accessToken': widget.accessToken,
+      },
+    );
+    // final result = await FlutterWebAuth.authenticate(
+    //     url: url.toString(), callbackUrlScheme: "webauthcallback");
+    if (result == widget.accessToken) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void _showLogOutDialog() {
