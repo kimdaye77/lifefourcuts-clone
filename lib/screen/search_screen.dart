@@ -61,6 +61,7 @@ class _SearchState extends State<Search> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.transparent,

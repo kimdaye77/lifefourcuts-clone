@@ -35,6 +35,7 @@ class _InfoState extends State<Info> {
   }
 
   Future<bool> signOutwithKakao() async {
+    await FirebaseAuth.instance.signOut();
     // final clientState = const Uuid().v4();
 
     // final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
@@ -55,7 +56,7 @@ class _InfoState extends State<Info> {
     );
     // final result = await FlutterWebAuth.authenticate(
     //     url: url.toString(), callbackUrlScheme: "webauthcallback");
-    if (result == widget.accessToken) {
+    if (result.toString() == widget.accessToken) {
       return true;
     } else {
       return false;
@@ -227,6 +228,7 @@ class _InfoState extends State<Info> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           elevation: 0,
           centerTitle: true,
           backgroundColor: Colors.transparent,

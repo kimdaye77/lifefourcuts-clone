@@ -1,15 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lifefourcuts_clone/firebase_options.dart';
-import 'package:lifefourcuts_clone/screen/login_screen.dart';
+import 'package:lifefourcuts_clone/screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // KakaoSdk.init(
-  //   nativeAppKey: 'ae8fdf693c8d7c8d131dab4acf6af9aa',
-  //   javaScriptAppKey: '949cbf74b763d4c442416b0ecf8e8072',
-  // );
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ).whenComplete(() => runApp(const MyApp()));
@@ -25,6 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String name = "";
   String provider = "";
+  String accessToken = "";
 
   @override
   void initState() {
@@ -44,11 +40,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSwatch()
             .copyWith(secondary: const Color(0xffff8ea2)),
       ),
-      home: Login(
-        name: name,
-        provider: provider,
-        accessToken: "",
-      ),
+      home: HomeScreen(accessToken: '', name: '', provider: ''),
     );
   }
 }

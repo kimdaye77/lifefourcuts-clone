@@ -2,11 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lifefourcuts_clone/screen/search_screen.dart';
 import 'package:lifefourcuts_clone/screen/story_screen.dart';
-import 'package:lifefourcuts_clone/widget/floating_action_button.dart';
 
 import '../model/frame_model.dart';
 import '../widget/bottom_bar.dart';
+import '../widget/floating_action_button.dart';
 import 'info_screen.dart';
+import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   String name;
@@ -36,6 +37,62 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  Widget _fetchLogin(BuildContext context) {
+    print(widget.name);
+    if (widget.name == "") {
+      return Login(
+        accessToken: '',
+        name: '',
+        provider: '',
+      );
+    } else {
+      return SafeArea(
+        child: DefaultTabController(
+          length: 5,
+          child: Scaffold(
+            body: TabBarView(
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                _Home(),
+                const StoryScreen(),
+                const SizedBox(),
+                const Search(),
+                Info(
+                  name: widget.name,
+                  provider: widget.provider,
+                  accessToken: widget.accessToken,
+                ),
+              ],
+            ),
+            bottomNavigationBar: const Bottom(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.endDocked,
+            // floatingActionButton: Container(
+            //   padding: const EdgeInsets.all(5),
+            //   decoration: BoxDecoration(
+            //     border: Border.all(
+            //       width: 3,
+            //       color: const Color(0xffff8ea2),
+            //     ),
+            //     color: Colors.white,
+            //     shape: BoxShape.circle,
+            //   ),
+            //   child: FloatingActionButton(
+            //     elevation: 1,
+            //     onPressed: (() {}),
+            //     child: const Icon(
+            //       Icons.add,
+            //       size: 30,
+            //     ),
+            //   ),
+            // ),
+            floatingActionButton: const FAB(),
+          ),
+        ),
+      );
+    }
+  }
+
   Widget _fetchData(BuildContext context) {
     List<Frame> frames = [];
     return StreamBuilder(
@@ -61,46 +118,52 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return _fetchLogin(context);
+  }
+
+  Widget _Home() {
     return SafeArea(
-      child: DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          body: TabBarView(
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              Home(),
-              const StoryScreen(),
-              const SizedBox(),
-              const Search(),
-              Info(
-                name: widget.name,
-                provider: widget.provider,
-                accessToken: widget.accessToken,
-              ),
-            ],
+      child: Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          foregroundColor: Theme.of(context).backgroundColor,
+          title: const Text(
+            "인생네컷",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'GmarketSans',
+              fontSize: 23,
+              fontWeight: FontWeight.w300,
+            ),
           ),
-          bottomNavigationBar: const Bottom(),
-          floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-          // floatingActionButton: Container(
-          //   padding: const EdgeInsets.all(5),
-          //   decoration: BoxDecoration(
-          //     border: Border.all(
-          //       width: 3,
-          //       color: const Color(0xffff8ea2),
-          //     ),
-          //     color: Colors.white,
-          //     shape: BoxShape.circle,
-          //   ),
-          //   child: FloatingActionButton(
-          //     elevation: 1,
-          //     onPressed: (() {}),
-          //     child: const Icon(
-          //       Icons.add,
-          //       size: 30,
-          //     ),
-          //   ),
-          // ),
-          floatingActionButton: const FAB(),
+        ),
+        body: SingleChildScrollView(
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 200,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                      border: Border.all(
+                        width: 1,
+                      ),
+                    ),
+                    child: const Image(
+                      image: AssetImage('images/banner.jpg'),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            _fetchData(context),
+          ]),
         ),
       ),
     );
@@ -213,53 +276,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       },
-    );
-  }
-
-  Widget Home() {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          centerTitle: true,
-          backgroundColor: Colors.transparent,
-          foregroundColor: Theme.of(context).backgroundColor,
-          title: const Text(
-            "인생네컷",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'GmarketSans',
-              fontSize: 23,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      border: Border.all(
-                        width: 1,
-                      ),
-                    ),
-                    child: const Image(
-                      image: AssetImage('images/banner.jpg'),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            _fetchData(context),
-          ]),
-        ),
-      ),
     );
   }
 }
