@@ -24,27 +24,34 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool _loading = true;
+  late bool _loading;
   var googleProvider = GoogleAuthProvider();
   var kakaoProvider = kakao.TokenManagerProvider;
 
+  @override
+  void initState() {
+    _loading = true;
+    super.initState();
+  }
+
   Future<bool> signInWithGoogle() async {
-    if (_loading) {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Center(
-                    child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).backgroundColor,
-                        valueColor:
-                            const AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    ),
-                  )));
-    }
+    // if (_loading) {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => Center(
+    //         child: SizedBox(
+    //           height: 50,
+    //           width: 50,
+    //           child: CircularProgressIndicator(
+    //             backgroundColor: Theme.of(context).backgroundColor,
+    //             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   );
+    // }
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -67,6 +74,7 @@ class _LoginState extends State<Login> {
       setState(() {
         widget.name = user.displayName!;
         widget.provider = "google";
+        _loading = false;
       });
     } catch (e) {
       print(e);
@@ -90,19 +98,20 @@ class _LoginState extends State<Login> {
   Future<bool> signInWithKakao() async {
     if (_loading) {
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => Center(
-                    child: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).backgroundColor,
-                        valueColor:
-                            const AlwaysStoppedAnimation<Color>(Colors.white),
-                      ),
-                    ),
-                  )));
+        context,
+        MaterialPageRoute(
+          builder: (context) => Center(
+            child: SizedBox(
+              height: 50,
+              width: 50,
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).backgroundColor,
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            ),
+          ),
+        ),
+      );
     }
     final clientState = const Uuid().v4();
 
@@ -115,15 +124,11 @@ class _LoginState extends State<Login> {
 
     final result = await FlutterWebAuth.authenticate(
         url: url.toString(), callbackUrlScheme: 'webauthcallback');
-    print(result);
-
     final params = Uri.parse(result).queryParameters;
 
     String customToken;
     widget.accessToken = params['accessToken']!;
     customToken = params['customToken']!;
-
-    print(params);
 
     final UserCredential authResult =
         await FirebaseAuth.instance.signInWithCustomToken(customToken);
@@ -135,14 +140,8 @@ class _LoginState extends State<Login> {
       widget.provider = "kakao";
       _loading = false;
     });
-    print(widget.name);
 
     return true;
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   @override

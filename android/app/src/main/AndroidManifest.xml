@@ -2,6 +2,14 @@
     package="com.example.lifefourcuts_clone">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission-group.CAMERA" />
+    <uses-permission android:name="android.permission-group.READ_MEDIA_VISUAL" />
+     <!-- Permissions options for the `storage` group -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <!-- Permissions options for the `camera` group -->
+    <uses-permission android:name="android.permission.CAMERA"/>
    <application
         android:usesCleartextTraffic="true"
         android:label="lifefourcuts_clone"

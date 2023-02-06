@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lifefourcuts_clone/screen/search_screen.dart';
 import 'package:lifefourcuts_clone/screen/story_screen.dart';
-
+import 'package:lifefourcuts_clone/widget/floating_action_button.dart';
 import '../model/frame_model.dart';
 import '../widget/bottom_bar.dart';
-import '../widget/floating_action_button.dart';
 import 'info_screen.dart';
 import 'login_screen.dart';
 
@@ -66,26 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             bottomNavigationBar: const Bottom(),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.endDocked,
-            // floatingActionButton: Container(
-            //   padding: const EdgeInsets.all(5),
-            //   decoration: BoxDecoration(
-            //     border: Border.all(
-            //       width: 3,
-            //       color: const Color(0xffff8ea2),
-            //     ),
-            //     color: Colors.white,
-            //     shape: BoxShape.circle,
-            //   ),
-            //   child: FloatingActionButton(
-            //     elevation: 1,
-            //     onPressed: (() {}),
-            //     child: const Icon(
-            //       Icons.add,
-            //       size: 30,
-            //     ),
-            //   ),
-            // ),
+                FloatingActionButtonLocation.centerDocked,
             floatingActionButton: const FAB(),
           ),
         ),

@@ -6,9 +6,6 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        vertical: 5,
-      ),
       color: Theme.of(context).backgroundColor,
       child: TabBar(
         labelColor: Theme.of(context).focusColor,

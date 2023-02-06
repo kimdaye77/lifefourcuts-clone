@@ -4,6 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lifefourcuts_clone/screen/coupon_screen.dart';
 import 'package:lifefourcuts_clone/screen/setting_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
 
 import '../widget/story_widget.dart';
 import 'frame_choice_screen.dart';
@@ -22,6 +23,17 @@ class Info extends StatefulWidget {
 }
 
 class _InfoState extends State<Info> {
+  Future<bool> permission() async {
+    Map<Permission, PermissionStatus> status =
+        await [Permission.location].request(); // [] 권한배열에 권한을 작성
+
+    if (await Permission.location.isGranted) {
+      return Future.value(true);
+    } else {
+      return Future.value(false);
+    }
+  }
+
   void signOutWithGoogle() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
@@ -410,6 +422,7 @@ class _InfoState extends State<Info> {
                           size: 50,
                         ),
                         onPressed: () {
+                          permission;
                           Navigator.push(
                             context,
                             MaterialPageRoute(
