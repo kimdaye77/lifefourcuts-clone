@@ -167,50 +167,62 @@ class _FABState extends State<FAB> {
 
   Widget _menulist() {
     List<Widget> items = [
-      Positioned.fill(
-        child: Transform.translate(
-          offset: Offset.fromDirection(9 * math.pi / 8, 80),
-          child: Container(
-            child: Column(
-              children: const [
-                Icon(
-                  Icons.photo_camera_back_outlined,
-                  size: 30,
-                ),
-                Text('프레임 만들기'),
-              ],
+      Center(
+        child: Positioned.fill(
+          child: Transform.translate(
+            offset: Offset.fromDirection(9 * math.pi / 8, 80),
+            child: SizedBox(
+              height: 40,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.photo_camera_back_outlined,
+                    size: 30,
+                  ),
+                  // Text('프레임 만들기'),
+                ],
+              ),
             ),
           ),
         ),
       ),
-      Positioned.fill(
-        child: Transform.translate(
-          offset: Offset.fromDirection(15 * math.pi / 8, 80),
-          child: Container(
-            child: Column(
-              children: const [
-                Icon(
-                  Icons.photo_size_select_large_outlined,
-                  size: 30,
-                ),
-                Text('포토 프린트'),
-              ],
+      Center(
+        child: Positioned.fill(
+          child: Transform.translate(
+            offset: Offset.fromDirection(15 * math.pi / 8, 80),
+            child: SizedBox(
+              height: 40,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.photo_size_select_large_outlined,
+                    size: 30,
+                  ),
+                  // Text('포토 프린트'),
+                ],
+              ),
             ),
           ),
         ),
       ),
-      Positioned.fill(
-        child: Transform.translate(
-          offset: Offset.fromDirection(math.pi / 2, 0),
-          child: Container(
-            child: Column(
-              children: const [
-                Icon(
-                  Icons.filter,
-                  size: 30,
-                ),
-                Text('프레임 선택'),
-              ],
+      Center(
+        child: Positioned.fill(
+          child: Transform.translate(
+            offset: Offset.fromDirection(math.pi / 2, 80),
+            child: SizedBox(
+              height: 40,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  Icon(
+                    Icons.filter,
+                    size: 30,
+                  ),
+                  // Text('프레임 선택'),
+                ],
+              ),
             ),
           ),
         ),
@@ -218,7 +230,7 @@ class _FABState extends State<FAB> {
     ];
 
     return Stack(
-      alignment: Alignment.center,
+      alignment: Alignment.bottomCenter,
       children: items,
     );
   }
