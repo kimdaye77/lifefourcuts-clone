@@ -51,6 +51,7 @@ dependencies:
   uuid: ^3.0.7
   http: ^0.13.5
   permission_handler: ^10.2.0
+  circular_menu: ^2.0.1
 
 dev_dependencies:
   flutter_test:
