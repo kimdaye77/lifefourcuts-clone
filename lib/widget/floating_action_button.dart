@@ -13,18 +13,20 @@ class _FABState extends State<FAB> {
   late bool camPermissionGranted;
   late bool storagePermissionGranted;
 
+  bool ischk = false;
+
   void permissionRequest() async {
-    Map<Permission, PermissionStatus> statuses = await [
+    await [
       Permission.camera,
       Permission.storage,
     ].request();
+    ischk = true;
+    permissionChk();
   }
 
   void permissionChk() async {
     camPermissionGranted = await Permission.camera.status.isGranted;
     storagePermissionGranted = await Permission.storage.status.isGranted;
-
-    setState(() {});
   }
 
   @override
@@ -66,6 +68,7 @@ class _FABState extends State<FAB> {
               onPressed: () {
                 permissionRequest();
                 permissionChk();
+                setState(() {});
                 _showMenu(context);
               }),
         ),
@@ -95,6 +98,27 @@ class _FABState extends State<FAB> {
             ),
           ),
         ),
+      );
+    } else if (ischk) {
+      showDialog(
+        context: context,
+        builder: ((context) => const AlertDialog(
+              contentPadding: EdgeInsets.only(bottom: 0),
+              content: Text(
+                "카메라 및 저장소에\n 대한 권한이 필요합니다.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 11,
+                ),
+              ),
+              actionsPadding: EdgeInsets.all(20),
+              actions: [
+                InkWell(
+                  onTap: null,
+                  child: Text('환경 설정'),
+                )
+              ],
+            )),
       );
     }
   }
