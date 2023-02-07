@@ -10,32 +10,26 @@ class FAB extends StatefulWidget {
 }
 
 class _FABState extends State<FAB> {
-  bool isOpened = false;
-  bool camPermissionsGranted = false;
+  late bool camPermissionGranted;
+  late bool storagePermissionGranted;
 
-  Future<bool> CamPermissionIsGranted() async {
-    if (await Permission.contacts.request().isGranted) {
-      camPermissionsGranted = await Permission.camera.status.isGranted;
-      setState(() {});
-      return camPermissionsGranted;
-    }
-    print("Ds");
-
+  void permissionRequest() async {
     Map<Permission, PermissionStatus> statuses = await [
       Permission.camera,
       Permission.storage,
     ].request();
+  }
 
-    print(statuses[Permission.storage]);
-    openAppSettings();
-    camPermissionsGranted = await Permission.camera.status.isGranted;
+  void permissionChk() async {
+    camPermissionGranted = await Permission.camera.status.isGranted;
+    storagePermissionGranted = await Permission.storage.status.isGranted;
+
     setState(() {});
-    return camPermissionsGranted;
   }
 
   @override
   void initState() {
-    isOpened = false;
+    permissionChk();
     super.initState();
   }
 
@@ -64,47 +58,52 @@ class _FABState extends State<FAB> {
             shape: BoxShape.circle,
           ),
           child: IconButton(
-            icon: const Icon(
-              Icons.add,
-              size: 30,
-              color: Color.fromARGB(255, 255, 216, 223),
-            ),
-            onPressed: () => _showMenu(context),
-          ),
+              icon: const Icon(
+                Icons.add,
+                size: 30,
+                color: Color.fromARGB(255, 255, 216, 223),
+              ),
+              onPressed: () {
+                permissionRequest();
+                permissionChk();
+                _showMenu(context);
+              }),
         ),
       ),
     );
   }
 
   void _showMenu(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        alignment: Alignment.bottomCenter,
-        insetPadding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              300,
+    if (camPermissionGranted && storagePermissionGranted) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          alignment: Alignment.bottomCenter,
+          insetPadding: const EdgeInsets.fromLTRB(0, 0, 0, 15),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                300,
+              ),
+            ),
+          ),
+          content: SizedBox(
+            width: 280,
+            height: 280,
+            child: Center(
+              child: _menulist(context),
             ),
           ),
         ),
-        content: SizedBox(
-          width: 280,
-          height: 280,
-          child: Center(
-            child: _menulist(context),
-          ),
-        ),
-      ),
-    );
+      );
+    }
   }
 
   Widget _menulist(BuildContext context) {
     List<Widget> items = [
       Positioned.fill(
         child: Transform.translate(
-          offset: Offset.fromDirection(11 * math.pi / 9, 90),
+          offset: Offset.fromDirection(21 * math.pi / 18, 90),
           child: SizedBox(
             height: 80,
             child: Column(
@@ -114,7 +113,8 @@ class _FABState extends State<FAB> {
                 Text(
                   'Beta',
                   style: TextStyle(
-                    fontFamily: 'DacingScript',
+                    fontFamily: 'DancingScript',
+                    fontSize: 24,
                     color: Theme.of(context).backgroundColor,
                   ),
                 ),
@@ -143,7 +143,7 @@ class _FABState extends State<FAB> {
       ),
       Positioned.fill(
         child: Transform.translate(
-          offset: Offset.fromDirection(16 * math.pi / 9, 90),
+          offset: Offset.fromDirection(33 * math.pi / 18, 90),
           child: SizedBox(
             height: 80,
             child: Column(
@@ -153,7 +153,8 @@ class _FABState extends State<FAB> {
                 Text(
                   'Beta',
                   style: TextStyle(
-                    fontFamily: 'DacingScript',
+                    fontSize: 24,
+                    fontFamily: 'DancingScript',
                     color: Theme.of(context).backgroundColor,
                   ),
                 ),
@@ -192,29 +193,13 @@ class _FABState extends State<FAB> {
                 Transform.rotate(
                   angle: 2 * math.pi / 3,
                   child: Container(
-                    color: const Color.fromARGB(100, 255, 216, 223),
-                    width: 3,
-                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(70, 255, 216, 223),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: 4,
+                    height: 60,
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-      Positioned.fill(
-        child: Transform.translate(
-          offset: Offset.fromDirection(3 * math.pi / 2, 90),
-          child: SizedBox(
-            height: 80,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  color: const Color.fromARGB(100, 255, 216, 223),
-                  width: 3,
-                  height: 50,
                 ),
               ],
             ),
@@ -233,9 +218,12 @@ class _FABState extends State<FAB> {
                 Transform.rotate(
                   angle: 1 * math.pi / 3,
                   child: Container(
-                    color: const Color.fromARGB(100, 255, 216, 223),
-                    width: 3,
-                    height: 50,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(70, 255, 216, 223),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: 4,
+                    height: 60,
                   ),
                 ),
               ],
@@ -253,9 +241,12 @@ class _FABState extends State<FAB> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  color: const Color.fromARGB(255, 255, 216, 223),
-                  width: 3,
-                  height: 50,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(70, 255, 216, 223),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: 4,
+                  height: 60,
                 ),
               ],
             ),

@@ -119,6 +119,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: DancingScript
+      fonts:
+        - asset: fonts/DancingScript-VariableFont_wght.ttf
     - family: esamanru
       fonts:
         - asset: fonts/esamanru Light.ttf
@@ -129,10 +132,6 @@ flutter:
       fonts:
         - asset: fonts/GmarketSansTTFLight.ttf
         - asset: fonts/GmarketSansTTFMedium.ttf
-        - asset: fonts/GmarketSansTTFBold.ttf
-    - family: DancingScript
-      fonts:
-        - asset: fonts/DancingScript-VariableFont_wght.ttf
-  
+        - asset: fonts/GmarketSansTTFBold.ttf  
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
