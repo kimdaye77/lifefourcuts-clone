@@ -1,5 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
     "cmake.configureOnOpen": false,
-    "cmake.sourceDirectory": "${workspaceFolder}/windows"
+    "cmake.sourceDirectory": "${workspaceFolder}/windows",
+    "liveServer.settings.port": 5501
 }

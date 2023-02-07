@@ -1,4 +1,3 @@
-import 'package:fab_circular_menu/fab_circular_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:math' as math;
@@ -70,14 +69,14 @@ class _FABState extends State<FAB> {
               size: 30,
               color: Color.fromARGB(255, 255, 216, 223),
             ),
-            onPressed: () => _showMenu(),
+            onPressed: () => _showMenu(context),
           ),
         ),
       ),
     );
   }
 
-  void _showMenu() {
+  void _showMenu(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -94,135 +93,242 @@ class _FABState extends State<FAB> {
           width: 280,
           height: 280,
           child: Center(
-            child: _menulist(),
+            child: _menulist(context),
           ),
         ),
       ),
     );
   }
 
-  Widget menu() {
-    return FabCircularMenu(
-      fabElevation: 0,
-      animationDuration: const Duration(
-        milliseconds: 0,
-      ),
-      fabMargin: isOpened
-          ? const EdgeInsets.only(
-              bottom: 160,
-            )
-          : const EdgeInsets.only(
-              bottom: 25,
-            ),
-      fabSize: 66,
-      fabOpenIcon: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 4,
-            color: Colors.white,
-          ),
-          shape: BoxShape.circle,
-        ),
-        child: const Icon(
-          Icons.add,
-          color: Color.fromARGB(255, 255, 216, 223),
-          size: 30,
-        ),
-      ),
-      fabCloseIcon: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(
-            width: 4,
-            color: Colors.white,
-          ),
-          shape: BoxShape.circle,
-        ),
-        child: const Icon(
-          Icons.close,
-          color: Color.fromARGB(255, 255, 216, 223),
-          size: 30,
-        ),
-      ),
-      onDisplayChange: (isClose) {
-        // CamPermissionIsGranted();
-        setState(() {
-          isOpened = !isOpened;
-        });
-        if (isOpened) _showMenu();
-      },
-      fabCloseColor: const Color(0xffff8ea2),
-      fabColor: const Color(0xffff8ea2),
-      fabOpenColor: const Color(0xffff8ea2),
-      ringDiameter: 300,
-      ringWidth: 150,
-      ringColor: Colors.white,
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(),
-      ],
-    );
-  }
-
-  Widget _menulist() {
+  Widget _menulist(BuildContext context) {
     List<Widget> items = [
-      Center(
-        child: Positioned.fill(
-          child: Transform.translate(
-            offset: Offset.fromDirection(9 * math.pi / 8, 80),
-            child: SizedBox(
-              height: 40,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.photo_camera_back_outlined,
-                    size: 30,
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(11 * math.pi / 9, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Beta',
+                  style: TextStyle(
+                    fontFamily: 'DacingScript',
+                    color: Theme.of(context).backgroundColor,
                   ),
-                  // Text('프레임 만들기'),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Icon(
+                  Icons.photo_camera_back_outlined,
+                  size: 30,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  '프레임 만들기',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
-      Center(
-        child: Positioned.fill(
-          child: Transform.translate(
-            offset: Offset.fromDirection(15 * math.pi / 8, 80),
-            child: SizedBox(
-              height: 40,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.photo_size_select_large_outlined,
-                    size: 30,
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(16 * math.pi / 9, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Beta',
+                  style: TextStyle(
+                    fontFamily: 'DacingScript',
+                    color: Theme.of(context).backgroundColor,
                   ),
-                  // Text('포토 프린트'),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Icon(
+                  Icons.photo_size_select_large_outlined,
+                  size: 30,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  '포토 프린터',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ),
-      Center(
-        child: Positioned.fill(
-          child: Transform.translate(
-            offset: Offset.fromDirection(math.pi / 2, 80),
-            child: SizedBox(
-              height: 40,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(
-                    Icons.filter,
-                    size: 30,
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(17 * math.pi / 8, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Transform.rotate(
+                  angle: 2 * math.pi / 3,
+                  child: Container(
+                    color: const Color.fromARGB(100, 255, 216, 223),
+                    width: 3,
+                    height: 50,
                   ),
-                  // Text('프레임 선택'),
-                ],
-              ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(3 * math.pi / 2, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  color: const Color.fromARGB(100, 255, 216, 223),
+                  width: 3,
+                  height: 50,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(7 * math.pi / 8, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Transform.rotate(
+                  angle: 1 * math.pi / 3,
+                  child: Container(
+                    color: const Color.fromARGB(100, 255, 216, 223),
+                    width: 3,
+                    height: 50,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(3 * math.pi / 2, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  color: const Color.fromARGB(255, 255, 216, 223),
+                  width: 3,
+                  height: 50,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(0, 0),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Theme.of(context).backgroundColor,
+                    border: Border.all(
+                      width: 2.5,
+                      color: Theme.of(context).backgroundColor,
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).backgroundColor,
+                      border: Border.all(
+                        width: 4,
+                        color: Colors.white,
+                      ),
+                      shape: BoxShape.circle,
+                    ),
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        size: 30,
+                        color: Color.fromARGB(255, 255, 216, 223),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      Positioned.fill(
+        child: Transform.translate(
+          offset: Offset.fromDirection(math.pi / 2, 90),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.filter,
+                  size: 30,
+                  color: Theme.of(context).backgroundColor,
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  '프레임 선택',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -230,7 +336,6 @@ class _FABState extends State<FAB> {
     ];
 
     return Stack(
-      alignment: Alignment.bottomCenter,
       children: items,
     );
   }
