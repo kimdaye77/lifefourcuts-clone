@@ -34,67 +34,6 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  Future<bool> signInWithGoogle() async {
-    // if (_loading) {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (context) => Center(
-    //         child: SizedBox(
-    //           height: 50,
-    //           width: 50,
-    //           child: CircularProgressIndicator(
-    //             backgroundColor: Theme.of(context).backgroundColor,
-    //             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // }
-    try {
-      // Trigger the authentication flow
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-
-      // Create a new credential
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      // Once signed in, return the UserCredential
-      final UserCredential authResult =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-
-      final User? user = authResult.user;
-      if (user == null) return false;
-      setState(() {
-        widget.name = user.displayName!;
-        widget.provider = "google";
-        _loading = false;
-      });
-    } catch (e) {
-      print(e);
-    }
-
-    return true;
-  }
-
-  void signOutWithGoogle() async {
-    await FirebaseAuth.instance.signOut();
-    await GoogleSignIn().signOut();
-
-    setState(() {
-      widget.name = "";
-      widget.provider = "";
-    });
-
-    print("Sign out");
-  }
-
   Future<bool> signInWithKakao() async {
     if (_loading) {
       Navigator.push(
@@ -144,55 +83,59 @@ class _LoginState extends State<Login> {
     return true;
   }
 
+  Future<bool> signInWithGoogle() async {
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+      // Once signed in, return the UserCredential
+      final UserCredential authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final User? user = authResult.user;
+      if (user == null) return false;
+      setState(() {
+        widget.name = user.displayName!;
+        widget.provider = "google";
+        _loading = false;
+      });
+    } catch (e) {
+      print(e);
+    }
+
+    return true;
+  }
+
+  signInWithFacebook() {}
+
+  signInWithNaver() {}
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height * 0.25 //150,
-                ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.17,
+            ),
             const Image(
               height: 170,
               image: AssetImage(
                 'images/pink_logo2.png',
               ),
             ),
-            // Text(
-            //   '인생\n네컷',
-            //   style: TextStyle(
-            //     fontSize: 80,
-            //     color: Theme.of(context).backgroundColor,
-            //     fontFamily: 'GmarketSans',
-            //     fontWeight: FontWeight.w300,
-            //   ),
-            // ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.15, //200,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  style: TextButton.styleFrom(
-                    minimumSize: const Size(300, 50),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    backgroundColor: Colors.transparent,
-                  ),
-                  onPressed: signOutWithGoogle,
-                  child: Text(
-                    'SNS로그인으로 시작하기',
-                    style: TextStyle(
-                      color: Theme.of(context).backgroundColor,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 15,
+              height: MediaQuery.of(context).size.height * 0.18,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -228,9 +171,8 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
-
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.015,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -272,6 +214,93 @@ class _LoginState extends State<Login> {
                   },
                   child: const Text(
                     '구글로 로그인하기',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.015,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    minimumSize: const Size(300, 50),
+                    backgroundColor: const Color(0xFF3b5998),
+                  ),
+                  onPressed: () async {
+                    if (await signInWithFacebook()) {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => HomeScreen(
+                                name: widget.name,
+                                provider: widget.provider,
+                                accessToken: widget.accessToken,
+                              )),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text(
+                    '페이스북으로 로그인하기',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.015,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    minimumSize: const Size(300, 50),
+                    backgroundColor: const Color(0xff2db400),
+                  ),
+                  onPressed: () async {
+                    if (await signInWithNaver()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: ((context) => HomeScreen(
+                                name: widget.name,
+                                provider: widget.provider,
+                                accessToken: widget.accessToken,
+                              )),
+                        ),
+                      );
+                    } else {
+                      () => Center(
+                            child: SizedBox(
+                              height: 50,
+                              width: 50,
+                              child: CircularProgressIndicator(
+                                backgroundColor:
+                                    Theme.of(context).backgroundColor,
+                                valueColor: const AlwaysStoppedAnimation<Color>(
+                                    Colors.white),
+                              ),
+                            ),
+                          );
+                    }
+                  },
+                  child: const Text(
+                    '네이버로 로그인하기',
                     style: TextStyle(
                       color: Colors.white,
                     ),
