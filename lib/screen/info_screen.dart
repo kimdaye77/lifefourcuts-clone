@@ -42,20 +42,10 @@ class _InfoState extends State<Info> {
       widget.name = "";
       widget.provider = "";
     });
-
-    print("Sign out");
   }
 
   Future<bool> signOutwithKakao() async {
     await FirebaseAuth.instance.signOut();
-    // final clientState = const Uuid().v4();
-
-    // final url = Uri.https('kauth.kakao.com', '/oauth/authorize', {
-    //   'response_type': 'code',
-    //   'client_id': '148faed447a0971199aff197f0c37b49',
-    //   'redirect_uri': 'http://192.168.56.1:8080/kakao/sign_out',
-    //   'state': clientState,
-    // });
     final url = Uri.parse("http://192.168.56.1:8080/kakao/sign_out");
     final result = await http.post(
       url,
@@ -66,8 +56,6 @@ class _InfoState extends State<Info> {
         'accessToken': widget.accessToken,
       },
     );
-    // final result = await FlutterWebAuth.authenticate(
-    //     url: url.toString(), callbackUrlScheme: "webauthcallback");
     if (result.toString() == widget.accessToken) {
       return true;
     } else {
@@ -75,11 +63,25 @@ class _InfoState extends State<Info> {
     }
   }
 
+  void signOutWithFacebook() async {
+    await FirebaseAuth.instance.signOut();
+    setState(() {
+      widget.name = "";
+      widget.provider = "";
+    });
+  }
+
+  void signOutWithNaver() async {
+    // await FirebaseAuth.instance.signOut();
+    // setState(() {
+    //   widget.name = "";
+    //   widget.provider = "";
+    // });
+  }
+
   void _showLogOutDialog() {
     showDialog(
         context: context,
-        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
-        // barrierDismissible: false,
         builder: (BuildContext context) {
           return Center(
             child: Container(
@@ -135,6 +137,12 @@ class _InfoState extends State<Info> {
                               } else if (widget.provider == "kakao") {
                                 signOutwithKakao();
                                 print("kakaosignout");
+                              } else if (widget.provider == "facebook") {
+                                signOutWithFacebook();
+                                print("facebooksignout");
+                              } else if (widget.provider == "naver") {
+                                signOutWithNaver();
+                                print("naversignout");
                               }
                               Navigator.push(
                                 context,

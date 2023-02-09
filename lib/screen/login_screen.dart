@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart' as kakao;
 import 'package:lifefourcuts_clone/screen/home_screen.dart';
 import 'package:uuid/uuid.dart';
 
@@ -26,9 +25,6 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   late bool _loading;
-  var googleProvider = GoogleAuthProvider();
-  var kakaoProvider = kakao.TokenManagerProvider;
-
   @override
   void initState() {
     _loading = true;
@@ -117,24 +113,23 @@ class _LoginState extends State<Login> {
   }
 
   Future<bool> signInWithFacebook() async {
-    final AccessToken result =
-        (await FacebookAuth.instance.login()) as AccessToken;
+    final LoginResult result = await FacebookAuth.instance.login();
 
-    //create a credential from the access token
+    // create a credential from the access token
     final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(result.token);
+        FacebookAuthProvider.credential(result.accessToken!.token);
 
     //once signed in, return the usercredential
-    // final UserCredential authResult = await FirebaseAuth.instance
-    //     .signInWithCredential(facebookAuthCredential);
-    // User? user = authResult.user;
-    // if (user == null) return false;
+    final UserCredential authResult = await FirebaseAuth.instance
+        .signInWithCredential(facebookAuthCredential);
+    User? user = authResult.user;
+    if (user == null) return false;
 
-    // setState(() {
-    //   widget.name = user.displayName!;
-    //   widget.provider = "facebook";
-    //   _loading = false;
-    // });
+    setState(() {
+      widget.name = user.displayName!;
+      widget.provider = "facebook";
+      _loading = false;
+    });
 
     return true;
   }

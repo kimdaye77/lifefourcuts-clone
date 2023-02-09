@@ -53,6 +53,7 @@ dependencies:
   permission_handler: ^10.2.0
   circular_menu: ^2.0.1
   flutter_facebook_auth: ^5.0.7
+  firebase_auth_platform_interface: ^6.11.8
 
 dev_dependencies:
   flutter_test:
