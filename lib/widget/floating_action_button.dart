@@ -76,7 +76,7 @@ class _FABState extends State<FAB> {
 
                 if (camPermissionGranted && storagePermissionGranted) {
                   _showMenu(context);
-                } else {
+                } else if (ischk) {
                   showDialog(
                     context: context,
                     builder: ((context) => AlertDialog(
