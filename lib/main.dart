@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:lifefourcuts_clone/firebase_options.dart';
 import 'package:lifefourcuts_clone/screen/home_screen.dart';
+import 'package:lifefourcuts_clone/screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSwatch()
             .copyWith(secondary: const Color(0xffff8ea2)),
       ),
-      home: HomeScreen(accessToken: '', name: '', provider: ''),
+      home: const Splash(),
     );
   }
 }
