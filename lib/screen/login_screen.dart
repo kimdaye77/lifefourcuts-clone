@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart' as kakao;
@@ -115,7 +116,28 @@ class _LoginState extends State<Login> {
     return true;
   }
 
-  signInWithFacebook() {}
+  Future<bool> signInWithFacebook() async {
+    final AccessToken result =
+        (await FacebookAuth.instance.login()) as AccessToken;
+
+    //create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(result.token);
+
+    //once signed in, return the usercredential
+    // final UserCredential authResult = await FirebaseAuth.instance
+    //     .signInWithCredential(facebookAuthCredential);
+    // User? user = authResult.user;
+    // if (user == null) return false;
+
+    // setState(() {
+    //   widget.name = user.displayName!;
+    //   widget.provider = "facebook";
+    //   _loading = false;
+    // });
+
+    return true;
+  }
 
   signInWithNaver() {}
 

@@ -52,6 +52,7 @@ dependencies:
   http: ^0.13.5
   permission_handler: ^10.2.0
   circular_menu: ^2.0.1
+  flutter_facebook_auth: ^5.0.7
 
 dev_dependencies:
   flutter_test:
