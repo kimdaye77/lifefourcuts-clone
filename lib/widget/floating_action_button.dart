@@ -68,45 +68,46 @@ class _FABState extends State<FAB> {
                 color: Color.fromARGB(255, 255, 216, 223),
               ),
               onPressed: () {
-                setState(() {
-                  if (!ischk) {
-                    permissionRequest();
-                  } else if (camPermissionGranted && storagePermissionGranted) {
-                    _showMenu(context);
-                  } else {
-                    showDialog(
-                      context: context,
-                      builder: ((context) => AlertDialog(
-                            contentPadding: EdgeInsets.zero,
-                            content: Container(
-                              padding: const EdgeInsets.only(
-                                top: 20,
-                              ),
-                              child: const Text(
-                                "카메라 및 저장소에\n 대한 권한이 필요합니다.",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                ),
+                print(camPermissionGranted);
+
+                if (!ischk) {
+                  permissionRequest();
+                }
+
+                if (camPermissionGranted && storagePermissionGranted) {
+                  _showMenu(context);
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: ((context) => AlertDialog(
+                          contentPadding: EdgeInsets.zero,
+                          content: Container(
+                            padding: const EdgeInsets.only(
+                              top: 20,
+                            ),
+                            child: const Text(
+                              "카메라 및 저장소에\n 대한 권한이 필요합니다.",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 15,
                               ),
                             ),
-                            actions: [
-                              InkWell(
-                                onTap: () {
-                                  openAppSettings();
-                                },
-                                child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10, horizontal: 15),
-                                    child: const Text('환경 설정')),
-                              )
-                            ],
-                          )),
-                    );
-                  }
-                  permissionChk();
-                  print(camPermissionGranted);
-                });
+                          ),
+                          actions: [
+                            InkWell(
+                              onTap: () {
+                                openAppSettings();
+                              },
+                              child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 15),
+                                  child: const Text('환경 설정')),
+                            )
+                          ],
+                        )),
+                  );
+                }
+                permissionChk();
               }),
         ),
       ),

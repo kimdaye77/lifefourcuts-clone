@@ -26,32 +26,35 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: Container(
-          padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.2,
-          ),
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Image(
-                height: 170,
-                image: AssetImage(
-                  'images/bwlogo.png',
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          body: Container(
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.2,
+            ),
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Image(
+                  height: 170,
+                  image: AssetImage(
+                    'images/bwlogo.png',
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 50,
-                width: 50,
-                child: CircularProgressIndicator(
-                  backgroundColor: Theme.of(context).backgroundColor,
-                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    valueColor:
+                        const AlwaysStoppedAnimation<Color>(Colors.white),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

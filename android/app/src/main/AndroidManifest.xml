@@ -16,7 +16,7 @@
         android:label="lifefourcuts_clone"
         android:name="android.app.Application"
         android:icon="@mipmap/ic_launcher">
-        <!-- naver login sdk -->
+        <!-- naver login sdk x
         <meta-data
             android:name="com.naver.sdk.clienteId"
             android:value="@string/client_id"/>
@@ -26,6 +26,7 @@
         <meta-data
             android:name="com.naver.sdk.clientName"
             android:value="@string/client_name"/>
+            -->
         <!-- facebook login sdk --> 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>   
