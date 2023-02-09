@@ -79,6 +79,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - images/bwlogo.png
     - images/pink_logo2.png
     - images/mimi.png
     - images/mimi-removebg-preview.png

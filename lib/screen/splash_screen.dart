@@ -37,13 +37,10 @@ class _SplashState extends State<Splash> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                '인생\n네컷',
-                style: TextStyle(
-                  fontFamily: 'GmarketSans',
-                  fontSize: 80,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w300,
+              const Image(
+                height: 170,
+                image: AssetImage(
+                  'images/bwlogo.png',
                 ),
               ),
               SizedBox(
