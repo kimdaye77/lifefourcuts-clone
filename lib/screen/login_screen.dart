@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
         body: Column(
           children: [
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.18,
             ),
             const Image(
               height: 170,
@@ -152,7 +152,7 @@ class _LoginState extends State<Login> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.2,
+              height: MediaQuery.of(context).size.height * 0.18,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

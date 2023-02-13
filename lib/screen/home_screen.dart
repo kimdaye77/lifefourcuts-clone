@@ -37,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _fetchLogin(BuildContext context) {
-    print(widget.name);
     if (widget.name == "") {
       return Login(
         accessToken: '',
