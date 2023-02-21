@@ -60,6 +60,7 @@ class _SearchState extends State<Search> {
     List<Frame> frames = snapshot.map((e) => Frame.fromSnapshot(e)).toList();
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           elevation: 0,
@@ -92,6 +93,7 @@ class _SearchState extends State<Search> {
                     children: [
                       Expanded(
                         child: TextField(
+                          textAlignVertical: TextAlignVertical.center,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.zero,
                             enabledBorder: OutlineInputBorder(

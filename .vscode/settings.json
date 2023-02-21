@@ -2,5 +2,9 @@
     "git.ignoreLimitWarning": true,
     "cmake.configureOnOpen": false,
     "cmake.sourceDirectory": "${workspaceFolder}/windows",
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "javascript.suggest.includeAutomaticOptionalChainCompletions": false,
+    "js/ts.implicitProjectConfig.strictNullChecks": false,
+    "typescript.suggest.includeAutomaticOptionalChainCompletions": false,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

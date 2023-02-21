@@ -54,6 +54,8 @@ dependencies:
   circular_menu: ^2.0.1
   flutter_facebook_auth: ^5.0.7
   firebase_auth_platform_interface: ^6.11.8
+  image_picker: ^0.8.6+2
+  image_cropper: ^3.0.1
 
 dev_dependencies:
   flutter_test:

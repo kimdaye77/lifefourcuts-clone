@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:math' as math;
 
+import '../screen/image_picker.dart';
+
 class FAB extends StatefulWidget {
   const FAB({super.key});
 
@@ -144,39 +146,43 @@ Widget _menulist(BuildContext context) {
     Positioned.fill(
       child: Transform.translate(
         offset: Offset.fromDirection(21 * math.pi / 18, 90),
-        child: SizedBox(
-          height: 80,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Beta',
-                style: TextStyle(
-                  fontFamily: 'DancingScript',
-                  fontSize: 24,
+        child: InkWell(
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: ((context) => const Picker()))),
+          child: SizedBox(
+            height: 80,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Beta',
+                  style: TextStyle(
+                    fontFamily: 'DancingScript',
+                    fontSize: 24,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Icon(
+                  Icons.photo_camera_back_outlined,
+                  size: 30,
                   color: Theme.of(context).backgroundColor,
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Icon(
-                Icons.photo_camera_back_outlined,
-                size: 30,
-                color: Theme.of(context).backgroundColor,
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Text(
-                '프레임 만들기',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).backgroundColor,
+                const SizedBox(
+                  height: 5,
                 ),
-              ),
-            ],
+                Text(
+                  '프레임 만들기',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
