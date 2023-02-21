@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -55,6 +57,57 @@ class _PickerState extends State<Picker> {
     });
   }
 
+  /// ImageCard Widget
+  Widget ImageCardWiget() {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Card(
+              elevation: 4.0,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: ImageWidget(),
+              ),
+            ),
+          ),
+          const SizedBox(height: 24.0),
+          // MenuWidget(),
+        ],
+      ),
+    );
+  }
+
+  /// 실제 이미지 Widget
+  Widget ImageWidget() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    if (_croppedFile != null) {
+      final path = _croppedFile!.path;
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 0.8 * screenWidth,
+          maxHeight: 0.7 * screenHeight,
+        ),
+        child: Image.file(File(path)),
+      );
+    } else if (_pickedFile != null) {
+      final path = _pickedFile!.path;
+      return ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: 0.8 * screenWidth,
+          maxHeight: 0.7 * screenHeight,
+        ),
+        child: Image.file(File(path)),
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
+  }
+
   @override
   void initState() {
     fn_uploadImage();
@@ -80,9 +133,14 @@ class _PickerState extends State<Picker> {
             ),
           ),
         ),
-        body: const TextButton(
-          onPressed: null,
-          child: Text('d'),
+        body: Column(
+          children: [
+            ImageCardWiget(),
+            const TextButton(
+              onPressed: null,
+              child: Text('d'),
+            ),
+          ],
         ),
       ),
     );
