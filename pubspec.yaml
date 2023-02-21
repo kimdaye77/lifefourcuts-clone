@@ -56,6 +56,7 @@ dependencies:
   firebase_auth_platform_interface: ^6.11.8
   image_picker: ^0.8.6+2
   image_cropper: ^3.0.1
+  widget_mask: ^1.0.0+0
 
 dev_dependencies:
   flutter_test:
@@ -111,6 +112,8 @@ flutter:
     - images/gosim1.png
     - images/gosim2.png
     - images/gosim3.png
+    - images/4frame.png
+    - images/22frame.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

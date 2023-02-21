@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:widget_mask/widget_mask.dart';
 
 class Picker extends StatefulWidget {
   const Picker({super.key});
@@ -72,7 +73,6 @@ class _PickerState extends State<Picker> {
             ),
           ),
           const SizedBox(height: 24.0),
-          // MenuWidget(),
         ],
       ),
     );
@@ -84,13 +84,26 @@ class _PickerState extends State<Picker> {
     final screenHeight = MediaQuery.of(context).size.height;
     if (_croppedFile != null) {
       final path = _croppedFile!.path;
-      return ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: 0.8 * screenWidth,
-          maxHeight: 0.7 * screenHeight,
+      return WidgetMask(
+        mask: Image.file(
+          File(
+            _croppedFile!.path,
+          ),
+          fit: BoxFit.cover,
         ),
-        child: Image.file(File(path)),
+        blendMode: BlendMode.srcATop,
+        childSaveLayer: true,
+        child: Image.asset(
+          'images/22frame.png',
+        ),
       );
+      //  ConstrainedBox(
+      //   constraints: BoxConstraints(
+      //     maxWidth: 0.8 * screenWidth,
+      //     maxHeight: 0.7 * screenHeight,
+      //   ),
+      //   child: Image.file(File(path)),
+      // );
     } else {
       return const SizedBox.shrink();
     }
