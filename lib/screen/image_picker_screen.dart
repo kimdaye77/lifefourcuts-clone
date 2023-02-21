@@ -34,6 +34,7 @@ class _PickerState extends State<Picker> {
         AndroidUiSettings(
           toolbarTitle: '사진 편집',
           toolbarWidgetColor: Colors.black,
+          activeControlsWidgetColor: Theme.of(context).backgroundColor,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),
