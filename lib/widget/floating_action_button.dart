@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:math' as math;
 
-import '../screen/image_picker.dart';
+import '../screen/image_picker_screen.dart';
 
 class FAB extends StatefulWidget {
   const FAB({super.key});

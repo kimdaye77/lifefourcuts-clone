@@ -12,7 +12,7 @@ class Picker extends StatefulWidget {
 }
 
 class _PickerState extends State<Picker> {
-  XFile? _pickedFile;
+  XFile? pickedFile;
   CroppedFile? _croppedFile;
 
   // 이미지 업로드 함수
@@ -20,39 +20,35 @@ class _PickerState extends State<Picker> {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      setState(() {
-        _pickedFile = pickedFile;
-      });
+      fn_cropImage(pickedFile);
     }
   }
 
   /// 수정된 이미지를 받아서 기존 변수 _croppedFile에 수정된 이미지로 덮어씌움.
-  Future<void> fn_cropImage() async {
-    if (_pickedFile != null) {
-      final croppedFile = await ImageCropper().cropImage(
-        sourcePath: _pickedFile!.path,
-        compressFormat: ImageCompressFormat.jpg,
-        compressQuality: 100,
-        uiSettings: [
-          AndroidUiSettings(
-              toolbarTitle: 'Cropper',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-        ],
-      );
-      if (croppedFile != null) {
-        setState(() {
-          _croppedFile = croppedFile;
-        });
-      }
+  Future<void> fn_cropImage(XFile pickedFile) async {
+    final croppedFile = await ImageCropper().cropImage(
+      sourcePath: pickedFile.path,
+      compressFormat: ImageCompressFormat.jpg,
+      compressQuality: 100,
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: '사진 편집',
+          toolbarWidgetColor: Colors.black,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+      ],
+    );
+    if (croppedFile != null) {
+      setState(() {
+        _croppedFile = croppedFile;
+      });
     }
   }
 
   void fn_clear() {
     setState(() {
-      _pickedFile = null;
+      pickedFile = null;
       _croppedFile = null;
     });
   }
@@ -94,15 +90,6 @@ class _PickerState extends State<Picker> {
         ),
         child: Image.file(File(path)),
       );
-    } else if (_pickedFile != null) {
-      final path = _pickedFile!.path;
-      return ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: 0.8 * screenWidth,
-          maxHeight: 0.7 * screenHeight,
-        ),
-        child: Image.file(File(path)),
-      );
     } else {
       return const SizedBox.shrink();
     }
@@ -135,11 +122,7 @@ class _PickerState extends State<Picker> {
         ),
         body: Column(
           children: [
-            ImageCardWiget(),
-            const TextButton(
-              onPressed: null,
-              child: Text('d'),
-            ),
+            (_croppedFile == null) ? Container() : ImageWidget(),
           ],
         ),
       ),
