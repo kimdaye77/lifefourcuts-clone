@@ -14,7 +14,7 @@ class CreateFrame extends StatefulWidget {
 
 class _CreateFrameState extends State<CreateFrame> {
   /// ImageCard Widget
-  Widget ImageCardWiget() {
+  Widget imageCardWiget() {
     return Center(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -26,7 +26,7 @@ class _CreateFrameState extends State<CreateFrame> {
               elevation: 4.0,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: ImageWidget(),
+                child: imageWidget(),
               ),
             ),
           ),
@@ -37,25 +37,20 @@ class _CreateFrameState extends State<CreateFrame> {
   }
 
   /// 실제 이미지 Widget
-  Widget ImageWidget() {
-    if (widget.croppedFile != null) {
-      final path = widget.croppedFile.path;
-      return WidgetMask(
-        mask: Image.file(
-          File(
-            widget.croppedFile.path,
-          ),
-          fit: BoxFit.cover,
+  Widget imageWidget() {
+    return WidgetMask(
+      mask: Image.file(
+        File(
+          widget.croppedFile.path,
         ),
-        blendMode: BlendMode.srcATop,
-        childSaveLayer: true,
-        child: Image.asset(
-          'images/22frame.png',
-        ),
-      );
-    } else {
-      return const SizedBox.shrink();
-    }
+        fit: BoxFit.cover,
+      ),
+      blendMode: BlendMode.srcATop,
+      childSaveLayer: true,
+      child: Image.asset(
+        'images/22frame.png',
+      ),
+    );
   }
 
   @override
@@ -78,7 +73,7 @@ class _CreateFrameState extends State<CreateFrame> {
           ),
         ),
         body: Container(
-          child: ImageCardWiget(),
+          child: imageCardWiget(),
         ),
       ),
     );

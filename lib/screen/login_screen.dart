@@ -106,10 +106,10 @@ class _LoginState extends State<Login> {
         widget.provider = "google";
         _loading = false;
       });
-    } on PlatformException catch (e) {
-      print(e);
-    } on FirebaseAuthException catch (e) {
-      print(e);
+    } on PlatformException {
+      // print(e);
+    } on FirebaseAuthException {
+      // print(e);
     }
 
     return true;

@@ -70,7 +70,7 @@ class _FABState extends State<FAB> {
                 color: Color.fromARGB(255, 255, 216, 223),
               ),
               onPressed: () {
-                print(camPermissionGranted);
+                // print(camPermissionGranted);
 
                 if (!ischk) {
                   permissionRequest();

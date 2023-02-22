@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
           context,
           MaterialPageRoute(
               builder: ((context) =>
-                  HomeScreen(name: "", provider: "", accessToken: ""))));
+                  const HomeScreen(name: "", provider: "", accessToken: ""))));
     });
     super.initState();
   }

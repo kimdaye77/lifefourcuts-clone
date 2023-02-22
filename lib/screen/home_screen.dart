@@ -9,10 +9,10 @@ import 'info_screen.dart';
 import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  String name;
-  String provider;
-  String accessToken;
-  HomeScreen({
+  final String name;
+  final String provider;
+  final String accessToken;
+  const HomeScreen({
     super.key,
     required this.name,
     required this.provider,
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             body: TabBarView(
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                _Home(),
+                home(),
                 const StoryScreen(),
                 const SizedBox(),
                 const Search(),
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return _fetchLogin(context);
   }
 
-  Widget _Home() {
+  Widget home() {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(

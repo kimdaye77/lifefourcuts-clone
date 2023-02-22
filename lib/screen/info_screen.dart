@@ -24,8 +24,8 @@ class Info extends StatefulWidget {
 
 class _InfoState extends State<Info> {
   Future<bool> permission() async {
-    Map<Permission, PermissionStatus> status =
-        await [Permission.location].request(); // [] 권한배열에 권한을 작성
+    // Map<Permission, PermissionStatus> status =
+    //     await [Permission.location].request(); // [] 권한배열에 권한을 작성
 
     if (await Permission.location.isGranted) {
       return Future.value(true);
@@ -133,16 +133,16 @@ class _InfoState extends State<Info> {
                             onPressed: () {
                               if (widget.provider == "google") {
                                 signOutWithGoogle();
-                                print("googlesignout");
+                                // print("googlesignout");
                               } else if (widget.provider == "kakao") {
                                 signOutwithKakao();
-                                print("kakaosignout");
+                                // print("kakaosignout");
                               } else if (widget.provider == "facebook") {
                                 signOutWithFacebook();
-                                print("facebooksignout");
+                                // print("facebooksignout");
                               } else if (widget.provider == "naver") {
                                 signOutWithNaver();
-                                print("naversignout");
+                                // print("naversignout");
                               }
                               Navigator.push(
                                 context,

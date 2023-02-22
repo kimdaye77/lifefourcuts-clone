@@ -15,16 +15,16 @@ class _PickerState extends State<Picker> {
   CroppedFile? croppedFile;
 
   // 이미지 업로드 함수
-  Future<void> fn_uploadImage() async {
+  Future<void> fnUploadImage() async {
     final pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      fn_cropImage(pickedFile);
+      fnCropImage(pickedFile);
     }
   }
 
   /// 수정된 이미지를 받아서 기존 변수 _croppedFile에 수정된 이미지로 덮어씌움.
-  Future<void> fn_cropImage(XFile pickedFile) async {
+  Future<void> fnCropImage(XFile pickedFile) async {
     croppedFile = await ImageCropper().cropImage(
       sourcePath: pickedFile.path,
       compressFormat: ImageCompressFormat.jpg,
@@ -53,7 +53,7 @@ class _PickerState extends State<Picker> {
     );
   }
 
-  void fn_clear() {
+  void fnClear() {
     setState(() {
       pickedFile = null;
       croppedFile = null;
@@ -62,7 +62,7 @@ class _PickerState extends State<Picker> {
 
   @override
   void initState() {
-    fn_uploadImage();
+    fnUploadImage();
     super.initState();
   }
 
