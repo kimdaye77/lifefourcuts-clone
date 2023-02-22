@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:widget_mask/widget_mask.dart';
+import 'package:lifefourcuts_clone/screen/create_frame_screen.dart';
 
 class Picker extends StatefulWidget {
   const Picker({super.key});
@@ -55,60 +53,6 @@ class _PickerState extends State<Picker> {
     });
   }
 
-  /// ImageCard Widget
-  Widget ImageCardWiget() {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Card(
-              elevation: 4.0,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ImageWidget(),
-              ),
-            ),
-          ),
-          const SizedBox(height: 24.0),
-        ],
-      ),
-    );
-  }
-
-  /// 실제 이미지 Widget
-  Widget ImageWidget() {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-    if (_croppedFile != null) {
-      final path = _croppedFile!.path;
-      return WidgetMask(
-        mask: Image.file(
-          File(
-            _croppedFile!.path,
-          ),
-          fit: BoxFit.cover,
-        ),
-        blendMode: BlendMode.srcATop,
-        childSaveLayer: true,
-        child: Image.asset(
-          'images/22frame.png',
-        ),
-      );
-      //  ConstrainedBox(
-      //   constraints: BoxConstraints(
-      //     maxWidth: 0.8 * screenWidth,
-      //     maxHeight: 0.7 * screenHeight,
-      //   ),
-      //   child: Image.file(File(path)),
-      // );
-    } else {
-      return const SizedBox.shrink();
-    }
-  }
-
   @override
   void initState() {
     fn_uploadImage();
@@ -136,7 +80,11 @@ class _PickerState extends State<Picker> {
         ),
         body: Column(
           children: [
-            (_croppedFile == null) ? Container() : ImageWidget(),
+            (_croppedFile == null)
+                ? Container()
+                : CreateFrame(
+                    croppedFile: _croppedFile!,
+                  ),
           ],
         ),
       ),
