@@ -12,7 +12,7 @@ class Picker extends StatefulWidget {
 
 class _PickerState extends State<Picker> {
   XFile? pickedFile;
-  CroppedFile? _croppedFile;
+  CroppedFile? croppedFile;
 
   // 이미지 업로드 함수
   Future<void> fn_uploadImage() async {
@@ -25,7 +25,7 @@ class _PickerState extends State<Picker> {
 
   /// 수정된 이미지를 받아서 기존 변수 _croppedFile에 수정된 이미지로 덮어씌움.
   Future<void> fn_cropImage(XFile pickedFile) async {
-    final croppedFile = await ImageCropper().cropImage(
+    croppedFile = await ImageCropper().cropImage(
       sourcePath: pickedFile.path,
       compressFormat: ImageCompressFormat.jpg,
       compressQuality: 100,
@@ -39,17 +39,24 @@ class _PickerState extends State<Picker> {
         ),
       ],
     );
-    if (croppedFile != null) {
-      setState(() {
-        _croppedFile = croppedFile;
-      });
-    }
+    nextStep(croppedFile!);
+  }
+
+  Future<void> nextStep(CroppedFile croppedFile) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: ((context) => CreateFrame(
+              croppedFile: croppedFile,
+            )),
+      ),
+    );
   }
 
   void fn_clear() {
     setState(() {
       pickedFile = null;
-      _croppedFile = null;
+      croppedFile = null;
     });
   }
 
@@ -77,15 +84,6 @@ class _PickerState extends State<Picker> {
               fontWeight: FontWeight.w300,
             ),
           ),
-        ),
-        body: Column(
-          children: [
-            (_croppedFile == null)
-                ? Container()
-                : CreateFrame(
-                    croppedFile: _croppedFile!,
-                  ),
-          ],
         ),
       ),
     );
