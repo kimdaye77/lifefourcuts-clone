@@ -10,6 +10,7 @@ import '../widget/story_widget.dart';
 import 'frame_choice_screen.dart';
 import 'login_screen.dart';
 
+// ignore: must_be_immutable
 class Info extends StatefulWidget {
   String name, provider, accessToken;
   Info(

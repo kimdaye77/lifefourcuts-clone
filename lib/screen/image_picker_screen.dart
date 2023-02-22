@@ -79,8 +79,7 @@ class _PickerState extends State<Picker> {
             "사진 선택하기",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: 'GmarketSans',
-              fontSize: 23,
+              fontSize: 20,
               fontWeight: FontWeight.w300,
             ),
           ),

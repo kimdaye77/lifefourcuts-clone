@@ -9,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lifefourcuts_clone/screen/home_screen.dart';
 import 'package:uuid/uuid.dart';
 
+// ignore: must_be_immutable
 class Login extends StatefulWidget {
   String name;
   String provider;

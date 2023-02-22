@@ -13,44 +13,47 @@ class CreateFrame extends StatefulWidget {
 }
 
 class _CreateFrameState extends State<CreateFrame> {
-  /// ImageCard Widget
-  Widget imageCardWiget() {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Card(
-              elevation: 4.0,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: imageWidget(),
-              ),
-            ),
-          ),
-          const SizedBox(height: 24.0),
-        ],
+  int selectedNum = 0;
+  late Widget frame = Image.file(
+    File(
+      widget.croppedFile.path,
+    ),
+  );
+
+  Widget imageWiget() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.4,
+      padding: const EdgeInsets.only(
+        bottom: 15,
       ),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey.shade400,
+          ),
+        ),
+      ),
+      child: frame,
     );
   }
 
-  /// 실제 이미지 Widget
-  Widget imageWidget() {
-    return WidgetMask(
-      mask: Image.file(
-        File(
-          widget.croppedFile.path,
+  void addStyle(String path) {
+    setState(() {
+      frame = WidgetMask(
+        mask: Image.file(
+          File(
+            widget.croppedFile.path,
+          ),
+          fit: BoxFit.cover,
         ),
-        fit: BoxFit.cover,
-      ),
-      blendMode: BlendMode.srcATop,
-      childSaveLayer: true,
-      child: Image.asset(
-        'images/22frame.png',
-      ),
-    );
+        blendMode: BlendMode.srcATop,
+        childSaveLayer: true,
+        child: Image.asset(
+          path,
+        ),
+      );
+    });
   }
 
   @override
@@ -66,14 +69,133 @@ class _CreateFrameState extends State<CreateFrame> {
             "나만의 프레임 만들기",
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: 'GmarketSans',
-              fontSize: 23,
+              fontSize: 20,
               fontWeight: FontWeight.w300,
             ),
           ),
         ),
-        body: Container(
-          child: imageCardWiget(),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Column(
+              children: [
+                imageWiget(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: const [
+                    Text(
+                      '프레임 스타일',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  child: GridView.count(
+                    mainAxisSpacing: 20,
+                    shrinkWrap: true,
+                    crossAxisCount: 3,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          addStyle('images/22frame.png');
+                          setState(() {
+                            selectedNum = 1;
+                          });
+                        },
+                        child: Image.asset(
+                          'images/22frame.png',
+                          color: selectedNum == 1
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addStyle('images/4frame.png');
+                          setState(() {
+                            selectedNum = 2;
+                          });
+                        },
+                        child: Image.asset(
+                          'images/4frame.png',
+                          color: selectedNum == 2
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addStyle('images/22frame.png');
+                          setState(() {
+                            selectedNum = 3;
+                          });
+                        },
+                        child: Image.asset(
+                          'images/22frame.png',
+                          color: selectedNum == 3
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addStyle('images/22frame.png');
+                          setState(() {
+                            selectedNum = 4;
+                          });
+                        },
+                        child: Image.asset(
+                          'images/22frame.png',
+                          color: selectedNum == 4
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addStyle('images/22frame.png');
+                          setState(() {
+                            selectedNum = 5;
+                          });
+                        },
+                        child: Image.asset(
+                          'images/22frame.png',
+                          color: selectedNum == 5
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          addStyle('images/22frame.png');
+                          setState(() {
+                            selectedNum = 6;
+                          });
+                        },
+                        child: Image.asset(
+                          'images/22frame.png',
+                          color: selectedNum == 6
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
