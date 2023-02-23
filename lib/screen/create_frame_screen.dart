@@ -14,6 +14,7 @@ class CreateFrame extends StatefulWidget {
 
 class _CreateFrameState extends State<CreateFrame> {
   int selectedNum = 0;
+  bool view_vertical = true;
   late Widget frame = Image.file(
     File(
       widget.croppedFile.path,
@@ -86,13 +87,47 @@ class _CreateFrameState extends State<CreateFrame> {
                   height: 20,
                 ),
                 Row(
-                  children: const [
-                    Text(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
                       '프레임 스타일',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    Row(
+                      children: [
+                        RotatedBox(
+                          quarterTurns: 1,
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                view_vertical = true;
+                              });
+                            },
+                            icon: Icon(
+                              Icons.rectangle,
+                              color: view_vertical
+                                  ? Theme.of(context).backgroundColor
+                                  : Colors.grey.shade400,
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            setState(() {
+                              view_vertical = false;
+                            });
+                          },
+                          icon: Icon(
+                            Icons.rectangle,
+                            color: view_vertical
+                                ? Colors.grey.shade400
+                                : Theme.of(context).backgroundColor,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
