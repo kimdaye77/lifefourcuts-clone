@@ -23,6 +23,8 @@ class _QRGeneratorState extends State<QRGenerator> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -46,8 +48,8 @@ class _QRGeneratorState extends State<QRGenerator> {
         body: Column(
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 20,
+              padding: EdgeInsets.symmetric(
+                horizontal: height * 0.025,
               ),
               child: Column(
                 children: [
@@ -64,13 +66,13 @@ class _QRGeneratorState extends State<QRGenerator> {
                           bottom: 15,
                         ),
                         child: widget.frame.like
-                            ? const Icon(
+                            ? Icon(
                                 Icons.star_rounded,
-                                size: 35,
+                                size: width * 0.08,
                               )
                             : Icon(
                                 Icons.star_border_rounded,
-                                size: 35,
+                                size: width * 0.08,
                                 color: Colors.grey.shade600,
                               ),
                       ),
@@ -84,8 +86,8 @@ class _QRGeneratorState extends State<QRGenerator> {
                         ),
                       ),
                     ),
-                    padding: const EdgeInsets.only(
-                      top: 15,
+                    padding: EdgeInsets.only(
+                      top: height * 0.015,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -114,8 +116,8 @@ class _QRGeneratorState extends State<QRGenerator> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(
-                      top: 15,
+                    padding: EdgeInsets.only(
+                      top: height * 0.015,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,8 +146,8 @@ class _QRGeneratorState extends State<QRGenerator> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(
-                      top: 15,
+                    padding: EdgeInsets.only(
+                      top: height * 0.015,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -174,8 +176,8 @@ class _QRGeneratorState extends State<QRGenerator> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(
-                      top: 15,
+                    padding: EdgeInsets.only(
+                      top: height * 0.015,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,8 +213,8 @@ class _QRGeneratorState extends State<QRGenerator> {
                         ),
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 15,
+                    padding: EdgeInsets.symmetric(
+                      vertical: height * 0.015,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,8 +272,8 @@ class _QRGeneratorState extends State<QRGenerator> {
             ),
             const Spacer(),
             Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 15,
+              padding: EdgeInsets.symmetric(
+                vertical: height * 0.018,
               ),
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,

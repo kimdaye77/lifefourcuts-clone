@@ -96,38 +96,35 @@ class _CreateFrameState extends State<CreateFrame> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Row(
-                      children: [
-                        RotatedBox(
-                          quarterTurns: 1,
-                          child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                view_vertical = true;
-                              });
-                            },
-                            icon: Icon(
-                              Icons.rectangle,
-                              color: view_vertical
-                                  ? Theme.of(context).backgroundColor
-                                  : Colors.grey.shade400,
-                            ),
-                          ),
+                    const Spacer(),
+                    RotatedBox(
+                      quarterTurns: 1,
+                      child: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            view_vertical = true;
+                          });
+                        },
+                        icon: Icon(
+                          Icons.rectangle,
+                          color: view_vertical
+                              ? Theme.of(context).backgroundColor
+                              : Colors.grey.shade400,
                         ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              view_vertical = false;
-                            });
-                          },
-                          icon: Icon(
-                            Icons.rectangle,
-                            color: view_vertical
-                                ? Colors.grey.shade400
-                                : Theme.of(context).backgroundColor,
-                          ),
-                        ),
-                      ],
+                      ),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          view_vertical = false;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.rectangle,
+                        color: view_vertical
+                            ? Colors.grey.shade400
+                            : Theme.of(context).backgroundColor,
+                      ),
                     ),
                   ],
                 ),
@@ -223,6 +220,33 @@ class _CreateFrameState extends State<CreateFrame> {
                           color: selectedNum == 6
                               ? Theme.of(context).backgroundColor
                               : Colors.grey.shade400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).backgroundColor,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          // showModalBottomSheet(
+                          //     context: context, builder: _showOptions);
+                        },
+                        child: const Text(
+                          '프레임 선택',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ],
